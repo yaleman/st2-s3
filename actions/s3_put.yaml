@@ -3,7 +3,7 @@ name: "put"
 runner_type: "python-script"
 enabled: true
 description: "puts a file to the s3 bucket"
-entry_point: "s3_upload.py"
+entry_point: "s3_put.py"
 parameters:
   filename:
     type: 'string'
