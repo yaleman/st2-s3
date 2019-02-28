@@ -1,0 +1,16 @@
+---
+s3server:
+  description: "S3 Bucket Server"
+  type: "string"
+  required: false
+  secret: false
+access_key:
+  description: "Access Key"
+  type: "string"
+  required: false
+  secret: true
+secret_key:
+  description: "S3 Bucket Secret Key"
+  type: "string"
+  required: false
+  secret: true
