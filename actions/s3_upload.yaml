@@ -1,0 +1,24 @@
+---
+name: "upload"
+runner_type: "python-script"
+enabled: true
+description: "uploads a file to the s3 bucket"
+entry_point: "s3_upload.py"
+parameters:
+  query:
+    type: 'filename'
+    description: 'filename to upload'
+    required: true
+  access_key:
+    type: 'string'
+    description: 's3 access key'
+    required: false
+
+  secret_key:
+    type: 'string'
+    description: 's3 secret key'
+    required: false
+  s3server:
+    type: 'string'
+    description: 'server endpoint to connect to'
+    required: false
