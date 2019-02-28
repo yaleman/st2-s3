@@ -5,8 +5,8 @@ enabled: true
 description: "uploads a file to the s3 bucket"
 entry_point: "s3_upload.py"
 parameters:
-  query:
-    type: 'filename'
+  filename:
+    type: 'string'
     description: 'filename to upload'
     required: true
   access_key:
