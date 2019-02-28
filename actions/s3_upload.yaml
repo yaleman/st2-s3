@@ -12,7 +12,7 @@ parameters:
   access_key:
     type: 'string'
     description: 's3 access key'
-    default: "{% if config.context.access_key%}}{{config_context.access_key}}{% endif %}"
+    default: "{% if config_context.access_key%}}{{config_context.access_key}}{% endif %}"
     required: false
   secret_key:
     type: 'string'
