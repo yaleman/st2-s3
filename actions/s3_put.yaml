@@ -1,8 +1,8 @@
 ---
-name: "upload"
+name: "put"
 runner_type: "python-script"
 enabled: true
-description: "uploads a file to the s3 bucket"
+description: "puts a file to the s3 bucket"
 entry_point: "s3_upload.py"
 parameters:
   filename:
@@ -12,15 +12,12 @@ parameters:
   access_key:
     type: 'string'
     description: 's3 access key'
-    default: "{{config_context.access_key}}"
     required: false
   secret_key:
     type: 'string'
-    default: "{{config_context.secret_key}}"
     description: 's3 secret key'
     required: false
   s3server:
-    default: "{{config_context.s3server}}"
     type: 'string'
     description: 'server endpoint to connect to'
     required: false
