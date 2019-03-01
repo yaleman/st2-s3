@@ -5,6 +5,7 @@ from minio import Minio
 def minio_client(action, endpoint=None, endpoint_secure=True, access_key=None, secret_key=None):
     """ instantiates a new client connection, does a bunch of stackstorm-specific checks first """
     if not endpoint:
+        action.logging.debug("No endpoint specified to minio_client")
         if action.config.get('endpoint', False):
             endpoint = action.config['endpoint']
             endpoint_secure = action.config['endpoint_secure']
@@ -21,4 +22,6 @@ def minio_client(action, endpoint=None, endpoint_secure=True, access_key=None, s
         else:
             return (False, "No secret key specified")
     
-    return (True, Minio(endpoint_secure, endpoint, access_key, secret_key))
+    action.logging.debug("Starting new connection {} (secure:{}) ac_len: {}, sk_len: {}".format( endpoint, endpoint_secure, len(access_key, len(secure_key)))
+
+    return (True, Minio(endpoint=endpoint, secure=endpoint_secure, access_key=access_key, secret_key=secret_key))
