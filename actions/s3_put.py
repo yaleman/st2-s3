@@ -29,7 +29,7 @@ class S3_put(Action):
             raise
         else:
             try:
-                minioClient.fput_object(bucket, filename, filesource)
-                return True
+                result = minioClient.fput_object(bucket, filename, filesource)
+                return (True, result)
             except ResponseError as err:
-                print(err)
+                return (False, err)
