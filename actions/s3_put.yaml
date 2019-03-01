@@ -16,18 +16,18 @@ parameters:
   access_key:
     type: 'string'
     description: 's3 access key'
-    required: true
+    required: false
   secret_key:
     type: 'string'
     description: 's3 secret key'
-    required: true
+    required: false
   endpoint:
     type: 'string'
     description: 'server endpoint to connect to (including port, ie example.com:9000)'
-    required: true
+    required: false
   endpoint_secure:
     type: 'boolean'
-    default: true
+    default: false
   bucket:
     type: 'string'
     description: "bucket to upload the file to"
