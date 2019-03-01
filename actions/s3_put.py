@@ -18,7 +18,7 @@ class S3_put(Action):
         # if endpoint is set by global, you can't change enpdoint_secure in the call
         if not endpoint and self.config.get('endpoint', False):
             endpoint = self.config['endpoint']
-            secure = self.config['endpoint_secure']
+            endpoint_secure = self.config['endpoint_secure']
         if not access_key and self.config.get('access_key', False):
             access_key = self.config['access_key']
         if not secret_key and self.config.get('secret_key', False):
@@ -28,7 +28,7 @@ class S3_put(Action):
         minioClient = Minio(endpoint,
                             access_key=access_key,
                             secret_key=secret_key,
-                            secure=secure)
+                            secure=endpoint_secure)
 
         # Make a bucket with the make_bucket API call.
         try:
