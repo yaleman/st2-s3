@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-from minio import Minio
-from minio.error import (ResponseError, BucketAlreadyOwnedByYou,
-                         BucketAlreadyExists)
+from client import minio_client
 
 
 if __name__ != '__main__':
@@ -15,27 +13,12 @@ class S3_put(Action):
 
         # check supplied config and set global config if available
 
-        # if endpoint is set by global, you can't change enpdoint_secure in the call
-        if not endpoint:
-            if self.config.get('endpoint', False):
-                endpoint = self.config['endpoint']
-                endpoint_secure = self.config['endpoint_secure']
-            else:
-                return (False, "Endpoint not specified")
-        if not access_key:
-            if self.config.get('access_key', False):
-                access_key = self.config['access_key']
-            else:
-                return (False, "No access key specified")
-        if not secret_key:
-            if self.config.get('secret_key', False):
-                secret_key = self.config['secret_key']
-            else:
-                return (False, "No secret key specified")
-        
         # Initialize minioClient with an endpoint and access/secret keys.
-        minioClient = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=endpoint_secure)
+        success, minioClient = minio_client(self, endpoint=endpoint, endpoint_secure=endpoint_secure, access_key=access_key, secret_key=secret_key)
 
+        if not success:
+            return (False, minioClient)
+        
         # Make a bucket with the make_bucket API call.
         try:
             if location:

@@ -1,17 +1,13 @@
 ---
-name: "put"
+name: "remove"
 runner_type: "python-script"
 enabled: true
-description: "puts a file to the s3 bucket"
-entry_point: "s3_put.py"
+description: "removes a file from an s3 bucket"
+entry_point: "remove.py"
 parameters:
   filename:
     type: 'string'
-    description: 'filename to upload'
-    required: true
-  filesource:
-    type: 'string'
-    description: 'local file to get content from'
+    description: 'filename to remove'
     required: true
   access_key:
     type: 'string'
@@ -30,9 +26,6 @@ parameters:
     default: false
   bucket:
     type: 'string'
-    description: "bucket to upload the file to"
+    description: "bucket to remove the file from"
     required: true
-  location:
-    type: 'string'
-    description: "bucket location"
-    required: false
+  
