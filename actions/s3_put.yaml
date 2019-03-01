@@ -25,10 +25,14 @@ parameters:
     type: 'string'
     description: 'server endpoint to connect to (including port, ie example.com:9000)'
     required: true
+  endpoint_secure:
+    type: 'boolean'
+    default: true
   bucket:
     type: 'string'
     description: "bucket to upload the file to"
     required: true
-  secure:
-    type: 'boolean'
-    default: true
+  location:
+    type: 'string'
+    description: "bucket location"
+    required: false

@@ -1,8 +1,14 @@
 ---
-s3server:
-  description: "S3 Bucket Server"
+endpoint:
+  description: "S3 Bucket Server including port (example.com:9000)"
   type: "string"
   required: false
+  secret: false
+endpoint_secure:
+  description: "Whether to use HTTPS or not for the server"
+  type: boolean
+  required: false
+  default: true
   secret: false
 access_key:
   description: "Access Key"

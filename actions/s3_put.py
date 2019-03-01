@@ -10,8 +10,20 @@ if __name__ != '__main__':
     from st2common.runners.base_action import Action
 
 class S3_put(Action):
-    def run(self, secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, filesource=None, bucket=None):
+    def run(self, endpoint_secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, filesource=None, bucket=None, location=None):
         """ uploads a file from the local disk """
+
+        # check supplied config and set global config if available
+
+        # if endpoint is set by global, you can't change enpdoint_secure in the call
+        if not endpoint and self.config.get('endpoint', False):
+            endpoint = self.config['endpoint']
+            secure = self.config['endpoint_secure']
+        if not access_key and self.config.get('access_key', False):
+            access_key = self.config['access_key']
+        if not secret_key and self.config.get('secret_key', False):
+            secret_key = self.config['secret_key']
+        
         # Initialize minioClient with an endpoint and access/secret keys.
         minioClient = Minio(endpoint,
                             access_key=access_key,
@@ -20,7 +32,10 @@ class S3_put(Action):
 
         # Make a bucket with the make_bucket API call.
         try:
-            minioClient.make_bucket(bucket)
+            if location:
+                minioClient.make_bucket(bucket, location=location)
+            else:
+                minioClient.make_bucket(bucket)
         except BucketAlreadyOwnedByYou as err:
             pass
         except BucketAlreadyExists as err:
@@ -30,6 +45,6 @@ class S3_put(Action):
         else:
             try:
                 result = minioClient.fput_object(bucket, filename, filesource)
-                return (True, result)
+                return (True, "Successfully uploaded {}".filename)
             except ResponseError as err:
                 return (False, err)
