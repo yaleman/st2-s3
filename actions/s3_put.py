@@ -44,7 +44,7 @@ class S3_put(Action):
             raise
         else:
             try:
-                result = minioClient.fput_object(bucket, filename, filesource)
-                return (True, "Successfully uploaded {}".filename)
+                minioClient.fput_object(bucket, filename, filesource)
+                return (True, "Successfully uploaded {}".format(filename))
             except ResponseError as err:
                 return (False, err)
