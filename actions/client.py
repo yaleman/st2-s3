@@ -22,6 +22,6 @@ def minio_client(action, endpoint=None, endpoint_secure=True, access_key=None, s
         else:
             return (False, "No secret key specified")
     
-    action.logger.debug("Starting new connection {} (secure:{}) ac_len: {}, sk_len: {}".format(endpoint, endpoint_secure, len(access_key), len(secure_key)))
+    action.logger.debug("Starting new connection {} (secure:{}) ac_len: {}, sk_len: {}".format(endpoint, endpoint_secure, len(access_key), len(secret_key)))
 
     return (True, Minio(endpoint=endpoint, secure=endpoint_secure, access_key=access_key, secret_key=secret_key))
