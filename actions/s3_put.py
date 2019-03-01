@@ -10,7 +10,7 @@ if __name__ != '__main__':
     from st2common.runners.base_action import Action
 
 class S3_put(Action):
-    def run(self, endpoint=None, access_key=None, secret_key=None, filename=None, filesource=None, bucket=None):
+    def run(self, secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, filesource=None, bucket=None):
         """ uploads a file from the local disk """
         # Initialize minioClient with an endpoint and access/secret keys.
         minioClient = Minio(endpoint,
