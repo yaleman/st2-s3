@@ -1,0 +1,38 @@
+---
+name: "put"
+runner_type: "python-script"
+enabled: true
+description: "puts a file to the s3 bucket"
+entry_point: "put.py"
+parameters:
+  filename:
+    type: 'string'
+    description: 'filename to upload'
+    required: true
+  filesource:
+    type: 'string'
+    description: 'local file to get content from'
+    required: true
+  access_key:
+    type: 'string'
+    description: 's3 access key'
+    required: false
+  secret_key:
+    type: 'string'
+    description: 's3 secret key'
+    required: false
+  endpoint:
+    type: 'string'
+    description: 'server endpoint to connect to (including port, ie example.com:9000)'
+    required: false
+  endpoint_secure:
+    type: 'boolean'
+    default: false
+  bucket:
+    type: 'string'
+    description: "bucket to upload the file to"
+    required: true
+  location:
+    type: 'string'
+    description: "bucket location"
+    required: false
