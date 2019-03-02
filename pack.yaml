@@ -1,7 +1,7 @@
 ---
 ref: s3
 name: s3
-description: S3-compatible file operations
+description: Very very basic S3-compatible file operations
 keywords:
   - s3
   - cloud
