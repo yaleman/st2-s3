@@ -1,0 +1,27 @@
+---
+name: "make_bucket"
+runner_type: "python-script"
+enabled: true
+description: "makes an s3 bucket"
+entry_point: "make_bucket.py"
+parameters:
+  access_key:
+    type: 'string'
+    description: 's3 access key'
+    required: false
+  secret_key:
+    type: 'string'
+    description: 's3 secret key'
+    required: false
+  endpoint:
+    type: 'string'
+    description: 'server endpoint to connect to (including port, ie example.com:9000)'
+    required: false
+  endpoint_secure:
+    type: 'boolean'
+    default: false
+  bucket:
+    type: 'string'
+    description: "bucket to create"
+    required: true
+  
