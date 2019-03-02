@@ -1,0 +1,22 @@
+---
+name: "list_buckets"
+runner_type: "python-script"
+enabled: true
+description: "list s3 buckets"
+entry_point: "list_buckets.py"
+parameters:
+  access_key:
+    type: 'string'
+    description: 's3 access key'
+    required: false
+  secret_key:
+    type: 'string'
+    description: 's3 secret key'
+    required: false
+  endpoint:
+    type: 'string'
+    description: 'server endpoint to connect to (including port, ie example.com:9000)'
+    required: false
+  endpoint_secure:
+    type: 'boolean'
+    default: false
