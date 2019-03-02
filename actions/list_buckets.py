@@ -21,7 +21,10 @@ class S3_list_buckets(Action):
 
         try:
             bucket_data = minioClient.list_buckets()
-            bucketlist = [{'name' : bucket.name, 'creation_date' : bucket.creation_date } for bucket in bucket_data]
+            bucketlist = [{
+                'name' : bucket.name, 
+                'creation_date' : bucket.creation_date.isoformat() 
+                } for bucket in bucket_data]
             return (True, bucketlist)
         except ResponseError as err:
             return (False, err)
