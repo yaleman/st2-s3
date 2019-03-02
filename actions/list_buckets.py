@@ -21,6 +21,7 @@ class S3_list_buckets(Action):
 
         try:
             bucket_data = minioClient.list_buckets()
+            # clean up the return data
             bucketlist = [{
                 'name' : bucket.name, 
                 'creation_date' : bucket.creation_date.isoformat() 
