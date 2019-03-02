@@ -20,6 +20,6 @@ class S3_list_buckets(Action):
             return (False, minioClient)
 
         try:
-            return (True, minioClient.list_buckets())
+            return (True, [set(bucket) for bucket in minioClient.list_buckets()])
         except ResponseError as err:
             return (False, err)
