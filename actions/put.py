@@ -27,7 +27,7 @@ class S3_put(Action):
         if filedata:
             fh = tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt', delete=True)
             filename=fh.name
-            self.logger.DEBUG("filename: {}".format(filename))
+            self.logger.debug("filename: {}".format(filename))
             fh.write(filedata)
 
         # Make a bucket with the make_bucket API call.
