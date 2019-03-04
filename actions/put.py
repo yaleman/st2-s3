@@ -35,23 +35,22 @@ class S3_put(Action):
             pass
         except ResponseError as err:
             raise
-        else:
-            try:
-                if filedata:
-                    self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                    if minioClient.put_object(bucket, filename, filedata):
-                        return (True, "Wrote '{}/{}'".format(bucket, filename))
-                    else:
-                        return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
+        try:
+            if filedata:
+                self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
+                if minioClient.put_object(bucket, filename, filedata):
+                    return (True, "Wrote '{}/{}'".format(bucket, filename))
                 else:
-                    if os.path.exists(filesource):
-                        self.logger.debug("Found file: '{}'".format(filesource))
-                        if minioClient.fput_object(bucket, filename, filesource):
-                            return (True, "Write file from '{} to '{}/{}'".format(filesource, bucket, filename))
-                        else:
-                            return (False, "Failed to write file from '{}' to '{}/{}'".format(filesource, bucket, filename))
+                    return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
+            else:
+                if os.path.exists(filesource):
+                    self.logger.debug("Found file: '{}'".format(filesource))
+                    if minioClient.fput_object(bucket, filename, filesource):
+                        return (True, "Write file from '{} to '{}/{}'".format(filesource, bucket, filename))
                     else:
-                        return (False, "Couldn't find file '{}'".format(filesource))
-            except ResponseError as err:
-                return (False, err)
+                        return (False, "Failed to write file from '{}' to '{}/{}'".format(filesource, bucket, filename))
+                else:
+                    return (False, "Couldn't find file '{}'".format(filesource))
+        except ResponseError as err:
+            return (False, err)
         return (False, "Failed for some reason")
