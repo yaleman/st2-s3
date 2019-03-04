@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import tempfile
-import os
+from tempfile import NamedTemporaryFile
+import os.path
 
 from io import StringIO
 
@@ -41,7 +41,7 @@ class S3_put(Action):
         try:
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                with tempfile.NamedTemporaryFile() as fh:
+                with NamedTemporaryFile() as fh:
                     fh.write(filedata)
                     fh.seek(0)
                     if minioClient.put_object(bucket, filename, fh, len(filedata)):
