@@ -8,3 +8,8 @@ I'm happy to take pull requests on this - I'm only implementing the things I nee
 
 * 2019-03-01 Basic PUT/REMOVE support, tested with minio.
 * 2019-03-02 Added list_buckets, make_bucket, remove_bucket, list_objects.
+* 2019-03-04 put can now take `filedata` which will save you writing an intermediate file
+
+# TODO
+
+* Add `get` ... derp?
