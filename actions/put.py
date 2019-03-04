@@ -45,7 +45,7 @@ class S3_put(Action):
                         self.logger.debug("Found file: '{}'".format(filesource))
                         minioClient.fput_object(bucket, filename, filesource)
                         return (True, "Write file from '{} to '{}/{}'".format(filesource, bucket, filename))
-                else:
-                    return (False, "Couldn't find file '{}'".format(filesource))
+                    else:
+                        return (False, "Couldn't find file '{}'".format(filesource))
             except ResponseError as err:
                 return (False, err)
