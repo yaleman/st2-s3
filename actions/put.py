@@ -25,7 +25,7 @@ class S3_put(Action):
         
         # write the file to a tempfile if it's just the filedata
         if filedata:
-            fh = tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt', delete=True)
+            fh = tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt', delete=False)
             filename=fh.name
             self.logger.debug("filename: {}".format(filename))
             fh.write(filedata)
