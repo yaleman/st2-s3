@@ -13,7 +13,7 @@ parameters:
     type: 'string'
     description: 'local file to get content from'
     required: false
-  filecontent:
+  filedata:
     description: 'content of the file to write'
     required: false
   access_key:
