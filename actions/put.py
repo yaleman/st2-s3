@@ -2,6 +2,7 @@
 
 import tempfile
 import os
+from io import StringIO
 
 from client import minio_client
 from minio.error import (ResponseError, BucketAlreadyOwnedByYou,
@@ -39,7 +40,8 @@ class S3_put(Action):
         try:
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                if minioClient.put_object(bucket, filename, filedata, len(filedata)):
+                fileio = StringIO(filedata)
+                if minioClient.put_object(bucket, filename, fileio, len(filedata)):
                     return (True, "Wrote '{}/{}'".format(bucket, filename))
                 else:
                     return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
