@@ -40,7 +40,7 @@ class S3_put(Action):
         try:
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                fileio = StringIO(filedata)
+                fileio = StringIO(bytes(filedata))
                 if minioClient.put_object(bucket, filename, fileio, len(filedata)):
                     return (True, "Wrote '{}/{}'".format(bucket, filename))
                 else:
