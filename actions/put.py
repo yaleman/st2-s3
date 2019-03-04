@@ -45,10 +45,13 @@ class S3_put(Action):
             raise
         else:
             try:
-                minioClient.fput_object(bucket, filename, filesource)
-                if filedata:
-                    #os.remove(fh.name)
-                    pass
-                return (True, "Successfully uploaded {}".format(filename))
+                if os.path.exists(filesource):
+                    minioClient.fput_object(bucket, filename, filesource)
+                    if filedata:
+                     #os.remove(fh.name)
+                        pass
+                    return (True, "Successfully uploaded {}".format(filename))
+                else:
+                    return (False, "Couldn't find file '{}'".format(filesource))
             except ResponseError as err:
                 return (False, err)
