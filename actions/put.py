@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 
-from client import minio_client
+import tempfile
+import os
 
+from client import minio_client
+from minio.error import (ResponseError, BucketAlreadyOwnedByYou,
+                         BucketAlreadyExists)
 
 if __name__ != '__main__':
     from st2common.content import utils
     from st2common.runners.base_action import Action
 
 class S3_put(Action):
-    def run(self, endpoint_secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, filesource=None, bucket=None, location=None):
+    def run(self, endpoint_secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, filedata=None, filesource=None, bucket=None, location=None):
         """ uploads a file from the local disk """
 
         # check supplied config and set global config if available
@@ -19,6 +23,12 @@ class S3_put(Action):
         if not success:
             return (False, minioClient)
         
+        # write the file to a tempfile if it's just the filedata
+        if filedata:
+            with tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt') as fh:
+                filename = fh.name
+                fh.write(filedata)
+
         # Make a bucket with the make_bucket API call.
         try:
             if location:
@@ -34,6 +44,8 @@ class S3_put(Action):
         else:
             try:
                 minioClient.fput_object(bucket, filename, filesource)
+                if filedata:
+                    os.remove(filename)
                 return (True, "Successfully uploaded {}".format(filename))
             except ResponseError as err:
                 return (False, err)
