@@ -25,9 +25,10 @@ class S3_put(Action):
         
         # write the file to a tempfile if it's just the filedata
         if filedata:
-            with tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt') as fh:
-                filename = fh.name
-                fh.write(filedata)
+            fh = tempfile.NamedTemporaryFile(prefix='st2_pastebin_', suffix='.txt', delete=True) as fh:
+            filename=fh.name
+            self.logger.DEBUG("filename: {}".format(filename))
+            fh.write(filedata)
 
         # Make a bucket with the make_bucket API call.
         try:
@@ -45,7 +46,7 @@ class S3_put(Action):
             try:
                 minioClient.fput_object(bucket, filename, filesource)
                 if filedata:
-                    os.remove(filename)
+                    fh.close()
                 return (True, "Successfully uploaded {}".format(filename))
             except ResponseError as err:
                 return (False, err)
