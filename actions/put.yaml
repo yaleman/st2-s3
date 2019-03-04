@@ -14,7 +14,7 @@ parameters:
     description: 'local file to get content from'
     required: false
   filedata:
-    type: 'object'
+    type: 'string'
     description: 'content of the file to write'
     required: false
   access_key:
