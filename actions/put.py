@@ -41,11 +41,13 @@ class S3_put(Action):
         try:
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                fileio = StringIO(unicode(filedata))
-                if minioClient.put_object(bucket, filename, fileio, len(filedata)):
-                    return (True, "Wrote '{}/{}'".format(bucket, filename))
-                else:
-                    return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
+                with tempfile.NamedTemporaryFile() as fh:
+                    fh.write(filedata)
+                    fh.seek(0)
+                    if minioClient.put_object(bucket, filename, fh, len(filedata)):
+                        return (True, "Wrote '{}/{}'".format(bucket, filename))
+                    else:
+                        return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
             else:
                 if os.path.exists(filesource):
                     self.logger.debug("Found file: '{}'".format(filesource))
