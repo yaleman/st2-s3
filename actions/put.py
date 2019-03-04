@@ -38,14 +38,16 @@ class S3_put(Action):
         else:
             try:
                 if filedata:
-                    minioClient.put_object(bucket, filename, filedata)
                     self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
+                    if minioClient.put_object(bucket, filename, filedata):
+                        return (True, "Wrote '{}/{}'".format(bucket, filename))
                 else:
                     if os.path.exists(filesource):
                         self.logger.debug("Found file: '{}'".format(filesource))
-                        minioClient.fput_object(bucket, filename, filesource)
-                        return (True, "Write file from '{} to '{}/{}'".format(filesource, bucket, filename))
+                        if minioClient.fput_object(bucket, filename, filesource):
+                            return (True, "Write file from '{} to '{}/{}'".format(filesource, bucket, filename))
                     else:
                         return (False, "Couldn't find file '{}'".format(filesource))
             except ResponseError as err:
                 return (False, err)
+        return (False, "Failed for some reason")
