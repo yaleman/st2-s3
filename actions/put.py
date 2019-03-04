@@ -35,10 +35,11 @@ class S3_put(Action):
             pass
         except ResponseError as err:
             raise
+        #upload the file
         try:
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
-                if minioClient.put_object(bucket, filename, filedata):
+                if minioClient.put_object(bucket, filename, filedata, len(filedata)):
                     return (True, "Wrote '{}/{}'".format(bucket, filename))
                 else:
                     return (False, "Failed to write filedata to '{}/{}'".format(bucket, filename))
