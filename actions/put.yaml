@@ -12,7 +12,11 @@ parameters:
   filesource:
     type: 'string'
     description: 'local file to get content from'
-    required: true
+    required: false
+  filedata:
+    type: 'string'
+    description: 'content of the file to write'
+    required: false
   access_key:
     type: 'string'
     description: 's3 access key'
