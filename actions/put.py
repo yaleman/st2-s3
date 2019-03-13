@@ -42,7 +42,7 @@ class S3_put(Action):
             if filedata:
                 self.logger.debug("Writing input content to '{}/{}'".format(bucket, filename))
                 with NamedTemporaryFile() as fh:
-                    fh.write(filedata)
+                    fh.write(filedata.encode('utf-8'))
                     fh.seek(0)
                     if minioClient.put_object(bucket, filename, fh, len(filedata)):
                         return (True, "Wrote '{}/{}'".format(bucket, filename))
