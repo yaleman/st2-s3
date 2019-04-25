@@ -26,6 +26,7 @@ class S3_get(Action):
         # remove it if it does
         try:
             data = minioClient.get_object(bucket, filename)
-            return (True, data)
+            retval = data.read(decode_content=True)
+            return (True, retval)
         except ResponseError as err:
             return (False, err)
