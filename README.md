@@ -10,7 +10,5 @@ I'm happy to take pull requests on this - I'm only implementing the things I nee
 * 2019-03-02 Added list_buckets, make_bucket, remove_bucket, list_objects.
 * 2019-03-04 put can now take `filedata` which will save you writing an intermediate file
 * 2019-03-14 Added Unicode handling for filedata
+* 2019-04-25 Adding get
 
-# TODO
-
-* Add `get` ... derp?
