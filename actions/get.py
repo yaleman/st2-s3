@@ -10,7 +10,7 @@ if __name__ != '__main__':
     from st2common.runners.base_action import Action
 
 class S3_get(Action):
-    def run(self, endpoint_secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, bucket=None):
+    def run(self, endpoint_secure=True, endpoint=None, access_key=None, secret_key=None, filename=None, bucket=None, location=None):
         """ gets a file from a bucket """
 
         # Initialize minioClient with an endpoint and access/secret keys.
