@@ -1,3 +1,7 @@
+⚠️ THIS IS ARCHIVED AND WILL NOT BE UPDATED ⚠️
+
+
+
 # st2-s3
 
 S3-compatible storage connector for stackstorm. Based on the minio python lib to allow for a more basic interface.
